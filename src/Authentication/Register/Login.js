@@ -78,7 +78,7 @@ function Login() {
                                 placeholder='Enter Your Password'
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
-                                onBlur={handleBlur('password')}
+                                onBlur={handleBlur('password')} 
                             />
                             <span 
                                 onClick={() => setShowPassword(!showPassword)} 

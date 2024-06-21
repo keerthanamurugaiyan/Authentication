@@ -98,6 +98,22 @@ function SignUp() {
                             />
                             {errors.emailOrPhone && <div className="invalid-feedback">{errors.emailOrPhone}</div>}
                         </div>
+                    </div> 
+
+                    <div className="mb-3">
+                        <label className='form-label fw-bold mt-2'>Email or Phone :</label>
+                        <div className="input-group">
+                            <span className="input-group-text"><FaEnvelope /></span>
+                            <input
+                                className={`form-control mt-1 ${getValidationClass('emailOrPhone')}`}
+                                type='text'
+                                placeholder='Enter Email or Phone'
+                                value={emailOrPhone}
+                                onChange={(e) => setEmailOrPhone(e.target.value)}
+                                onBlur={handleBlur('emailOrPhone')}
+                            />
+                            {errors.emailOrPhone && <div className="invalid-feedback">{errors.emailOrPhone}</div>}
+                        </div>
                     </div>
 
                     <div className="mb-3">

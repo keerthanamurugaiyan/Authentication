@@ -4,7 +4,9 @@ import { IoEye, IoEyeOff } from 'react-icons/io5';
 
 function SignUp() {
     const [userName, setUserName] = useState('');
-    const [emailOrPhone, setEmailOrPhone] = useState('');
+    // const [emailOrPhone, setEmailOrPhone] = useState('');
+    const [email, setEmail] = useState('');
+    const [Phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [errors, setErrors] = useState({});
@@ -15,15 +17,24 @@ function SignUp() {
     const validate = () => {
         let tempErrors = {};
         tempErrors.userName = userName ? "" : "UserName is required.";
-        tempErrors.emailOrPhone = emailOrPhone ? "" : "Email or Phone is required.";
+        tempErrors.email = email ? "" : "Email is required.";
+        tempErrors.ohone = Phone ? "" : "Phone Number is required";
         tempErrors.password = password ? "" : "Password is required.";
         tempErrors.confirmPassword = confirmPassword ? "" : "Confirm Password is required.";
         
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         const phoneRegex = /^\d{10}$/;
         
-        if (emailOrPhone && !emailRegex.test(emailOrPhone) && !phoneRegex.test(emailOrPhone)) {
-            tempErrors.emailOrPhone = "Invalid email or phone format.";
+        // if (emailOrPhone && !emailRegex.test(emailOrPhone) && !phoneRegex.test(emailOrPhone)) {
+        //     tempErrors.emailOrPhone = "Invalid email or phone format.";
+        // }
+
+        if (email && !emailRegex.test(email)) {
+            tempErrors.email = "Invalid email format.";
+        }
+
+        if (Phone && phoneRegex.test(Phone)) {
+            tempErrors.Phone = "Invalid phone format.";
         }
         
         if (password && confirmPassword && password !== confirmPassword) {
@@ -57,15 +68,19 @@ function SignUp() {
             return 'is-invalid';
         }
         if (!errors[field] && touched[field]) {
-            return 'is-valid';
+            return 'is-valid';       
         }
         return '';
     };
 
     return (
+        
         <Fragment>
+          
             <div className='container-fluid d-flex justify-content-center'>
+                
                 <form className='bg-light ps-5 pe-5 pt-4 pb-4 rounded-5 mt-4' onSubmit={handleSubmit}>
+                    
                     <h2 className='text-center mb-4'>Signup Here!</h2>
 
                     <div className="mb-3">
@@ -84,7 +99,7 @@ function SignUp() {
                         </div>
                     </div>
 
-                    <div className="mb-3">
+                    {/* <div className="mb-3">
                         <label className='form-label fw-bold mt-2'>Email or Phone :</label>
                         <div className="input-group">
                             <span className="input-group-text"><FaEnvelope /></span>
@@ -98,21 +113,37 @@ function SignUp() {
                             />
                             {errors.emailOrPhone && <div className="invalid-feedback">{errors.emailOrPhone}</div>}
                         </div>
-                    </div> 
+                    </div> */}
 
                     <div className="mb-3">
-                        <label className='form-label fw-bold mt-2'>Email or Phone :</label>
+                        <label className='form-label fw-bold mt-2'>Email :</label>
                         <div className="input-group">
                             <span className="input-group-text"><FaEnvelope /></span>
                             <input
-                                className={`form-control mt-1 ${getValidationClass('emailOrPhone')}`}
+                                className={`form-control mt-1 ${getValidationClass('email')}`}
                                 type='text'
-                                placeholder='Enter Email or Phone'
-                                value={emailOrPhone}
-                                onChange={(e) => setEmailOrPhone(e.target.value)}
-                                onBlur={handleBlur('emailOrPhone')}
+                                placeholder='Enter Email Address'
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                onBlur={handleBlur('email')}
                             />
-                            {errors.emailOrPhone && <div className="invalid-feedback">{errors.emailOrPhone}</div>}
+                            {errors.email && <div className="invalid-feedback">{errors.email}</div>}
+                        </div>
+                    </div> 
+
+                    <div className="mb-3">
+                        <label className='form-label fw-bold mt-2'>Phone :</label>
+                        <div className="input-group">
+                            <span className="input-group-text"><FaPhone /></span>
+                            <input
+                                className={`form-control mt-1 ${getValidationClass('Phone')}`}
+                                type='text'
+                                placeholder='Enter Phone Number'
+                                value={Phone}
+                                onChange={(e) => setPhone(e.target.value)}
+                                onBlur={handleBlur('Phone')}
+                            />
+                            {errors.Phone && <div className="invalid-feedback">{errors.Phone}</div>}
                         </div>
                     </div>
 
@@ -163,8 +194,16 @@ function SignUp() {
                     <div className='d-flex justify-content-end'>
                         <button  className='btn mt-4 text-center' type='submit'>Signup</button>
                     </div>
+
+                    <div className='d-flex'>
+                        <p>already you have an accound?</p>
+                        <link>Login</link>
+                    </div>
+                
                 </form>
+            
             </div>
+        
         </Fragment>
     );
 }

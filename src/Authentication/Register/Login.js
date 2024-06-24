@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import { FaUser, FaLock} from 'react-icons/fa';
 import { IoEye, IoEyeOff } from 'react-icons/io5';
+import {Link} from 'react-router-dom';
 
 function Login() {
     const [userName, setUserName] = useState('');
@@ -51,7 +52,7 @@ function Login() {
         <Fragment>
            
             <div className='d-flex justify-content-center mt-5'>
-                <form className='mt-5 p-5 bg-light rounded-5' onSubmit={handleSubmit}>
+                <form className='mt-5 pt-3 ps-5 pe-5 pb-2 bg-light rounded-5' onSubmit={handleSubmit}>
                     <h1 className='text-center'>Login</h1>
 
                     <div className="mb-3">
@@ -93,7 +94,12 @@ function Login() {
                     </div>
 
                     <div className='d-flex justify-content-end'>
-                        <button className='btn mt-4'>Login In</button>
+                        <button className='btn mt-3'>Log In</button>
+                    </div>
+
+                    <div className='d-flex mt-3'>
+                        <p>Dont't have an accound?</p>
+                       <Link to={'/'} className='mx-5'>Sign In</Link>
                     </div>
 
                 </form>

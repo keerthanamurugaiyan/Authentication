@@ -1,12 +1,13 @@
 import React, { Fragment, useState } from 'react';
 import { FaUser, FaEnvelope, FaPhone, FaLock, FaCheck } from 'react-icons/fa';
 import { IoEye, IoEyeOff } from 'react-icons/io5';
+import {Link} from 'react-router-dom';
 
 function SignUp() {
     const [userName, setUserName] = useState('');
     // const [emailOrPhone, setEmailOrPhone] = useState('');
     const [email, setEmail] = useState('');
-    const [Phone, setPhone] = useState('');
+    const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [errors, setErrors] = useState({});
@@ -18,7 +19,7 @@ function SignUp() {
         let tempErrors = {};
         tempErrors.userName = userName ? "" : "UserName is required.";
         tempErrors.email = email ? "" : "Email is required.";
-        tempErrors.ohone = Phone ? "" : "Phone Number is required";
+        tempErrors.phone = phone ? "" : "Phone Number is required";
         tempErrors.password = password ? "" : "Password is required.";
         tempErrors.confirmPassword = confirmPassword ? "" : "Confirm Password is required.";
         
@@ -33,8 +34,8 @@ function SignUp() {
             tempErrors.email = "Invalid email format.";
         }
 
-        if (Phone && phoneRegex.test(Phone)) {
-            tempErrors.Phone = "Invalid phone format.";
+        if (phone && phoneRegex.test(phone)) {
+            tempErrors.phone = "Invalid phone number format.";
         }
         
         if (password && confirmPassword && password !== confirmPassword) {
@@ -77,18 +78,17 @@ function SignUp() {
         
         <Fragment>
           
-            <div className='container-fluid d-flex justify-content-center'>
-                
-                <form className='bg-light ps-5 pe-5 pt-4 pb-4 rounded-5 mt-4' onSubmit={handleSubmit}>
+            <div className='container-fluid d-flex justify-content-center mb-2'>
+                <form className='bg-light ps-5 pe-5 pt-3 pb- rounded-5 mt-2' onSubmit={handleSubmit}>
                     
                     <h2 className='text-center mb-4'>Signup Here!</h2>
 
-                    <div className="mb-3">
+                    <div className="mb-">
                         <label className='form-label fw-bold'>UserName :</label>
                         <div className="input-group">
                             <span className="input-group-text"><FaUser /></span>
                             <input
-                                className={`form-control ${getValidationClass('userName')}`}
+                                className={`input form-control ${getValidationClass('userName')}`}
                                 type="text"
                                 placeholder="Enter UserName"
                                 value={userName}
@@ -115,9 +115,9 @@ function SignUp() {
                         </div>
                     </div> */}
 
-                    <div className="mb-3">
+                    <div className="mb-">
                         <label className='form-label fw-bold mt-2'>Email :</label>
-                        <div className="input-group">
+                        <div className="input-group inputsize">
                             <span className="input-group-text"><FaEnvelope /></span>
                             <input
                                 className={`form-control mt-1 ${getValidationClass('email')}`}
@@ -131,23 +131,23 @@ function SignUp() {
                         </div>
                     </div> 
 
-                    <div className="mb-3">
+                    <div className="mb-">
                         <label className='form-label fw-bold mt-2'>Phone :</label>
                         <div className="input-group">
                             <span className="input-group-text"><FaPhone /></span>
                             <input
-                                className={`form-control mt-1 ${getValidationClass('Phone')}`}
+                                className={`form-control mt-1 ${getValidationClass('phone')}`}
                                 type='text'
                                 placeholder='Enter Phone Number'
-                                value={Phone}
+                                value={phone}
                                 onChange={(e) => setPhone(e.target.value)}
-                                onBlur={handleBlur('Phone')}
+                                onBlur={handleBlur('phone')}
                             />
-                            {errors.Phone && <div className="invalid-feedback">{errors.Phone}</div>}
+                            {errors.phone && <div className="invalid-feedback">{errors.phone}</div>}
                         </div>
                     </div>
 
-                    <div className="mb-3">
+                    <div className="mb-">
                         <label className='form-label fw-bold mt-2'>Password :</label>
                         <div className="input-group">
                             <span className="input-group-text"><FaLock /></span>
@@ -169,7 +169,7 @@ function SignUp() {
                         </div>
                     </div>
 
-                    <div className="mb-3">
+                    <div className="mb-">
                         <label className='form-label fw-bold mt-2'>Confirm password :</label>
                         <div className="input-group">
                             <span className="input-group-text"><FaCheck /></span>
@@ -195,13 +195,12 @@ function SignUp() {
                         <button  className='btn mt-4 text-center' type='submit'>Signup</button>
                     </div>
 
-                    <div className='d-flex'>
+                    <div className='d-flex mt-3'>
                         <p>already you have an accound?</p>
-                        <link>Login</link>
+                        <Link to={'loginpage'} className='mx-5 text-start'>Login</Link>
                     </div>
                 
                 </form>
-            
             </div>
         
         </Fragment>
@@ -219,9 +218,6 @@ export default SignUp;
 
 
         
-
-
-
 
 
 

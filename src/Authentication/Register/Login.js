@@ -1,18 +1,21 @@
 import React, { Fragment, useState } from 'react';
-import { FaUser, FaLock} from 'react-icons/fa';
+import { FaEnvelope, FaLock} from 'react-icons/fa';
 import { IoEye, IoEyeOff } from 'react-icons/io5';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
+import { registerUser } from '../Api/LoginApi';
 
 function Login() {
-    const [userName, setUserName] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState({});
     const [touched, setTouched] = useState({});
     const [showPassword, setShowPassword] = useState(false);
 
+    const navigate = useNavigate()
+
     const validate = () => {
         let tempErrors = {};
-        tempErrors.userName = userName ? "" : "UserName is required.";
+        tempErrors.email = email ? "" : "Email is required.";
         tempErrors.password = password ? "" : "Password is required.";
 
         setErrors(tempErrors);
@@ -23,10 +26,14 @@ function Login() {
             e.preventDefault();
             if (validate()) {
                 // Submit form
+                registerUser(
+                    {email , password}
+                ) 
                 console.log("Form submitted successfully");
             } else {
                 console.log("Form has errors");
             }
+            navigate('/table')
         };
 
         const handleBlur = (field) => (e) => {
@@ -56,20 +63,20 @@ function Login() {
                     <h1 className='text-center'>Login</h1>
 
                     <div className="mb-3">
-                        <label className='form-label fw-bold'>UserName :</label>
-                        <div className="input-group">
-                            <span className="input-group-text"><FaUser /></span>
+                        <label className='form-label fw-bold mt-2'>Email :</label>
+                        <div className="input-group inputsize">
+                            <span className="input-group-text"><FaEnvelope /></span>
                             <input
-                                className={`form-control ${getValidationClass('userName')}`}
-                                type="text"
-                                placeholder="Enter Your UserName"
-                                value={userName}
-                                onChange={(e) => setUserName(e.target.value)}
-                                onBlur={handleBlur('userName')}
+                                className={`form-control mt-1 ${getValidationClass('email')}`}
+                                type='text'
+                                placeholder='Enter Email Address'
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                onBlur={handleBlur('email')}
                             />
-                            {errors.userName && <div className="invalid-feedback">{errors.userName}</div>}
+                            {errors.email && <div className="invalid-feedback">{errors.email}</div>}
                         </div>
-                    </div>
+                    </div> 
 
                     <div className="mb-3">
                         <label className='form-label fw-bold mt-2'>Password :</label>

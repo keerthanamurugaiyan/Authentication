@@ -1,7 +1,9 @@
 import React, { Fragment, useState } from 'react';
 import { FaUser, FaEnvelope, FaPhone, FaLock, FaCheck } from 'react-icons/fa';
 import { IoEye, IoEyeOff } from 'react-icons/io5';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
+// import { createUser } from './Api';
+import { registerUser } from '../Api/SignUpApi';
 
 function SignUp() {
     const [userName, setUserName] = useState('');
@@ -10,10 +12,17 @@ function SignUp() {
     const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [userRoll, setUserRoll] = useState('');
     const [errors, setErrors] = useState({});
     const [touched, setTouched] = useState({});
     const [showPassword, setShowPassword] = useState(false);
     const [passwordConfirm, setPasswordConfirm] = useState(false);
+
+    const navigate = useNavigate()
+
+    const handleUserRollChange = (e) => {
+        setUserRoll(e.target.value);
+    };
 
     const validate = () => {
         let tempErrors = {};
@@ -23,20 +32,22 @@ function SignUp() {
         tempErrors.password = password ? "" : "Password is required.";
         tempErrors.confirmPassword = confirmPassword ? "" : "Confirm Password is required.";
         
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        const phoneRegex = /^\d{10}$/;
+        // tempErrors.useRoll = userRoll ?  "" : "userRoll is required."
+        
+        // const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        // const phoneRegex = /^\d{10}$/;
         
         // if (emailOrPhone && !emailRegex.test(emailOrPhone) && !phoneRegex.test(emailOrPhone)) {
         //     tempErrors.emailOrPhone = "Invalid email or phone format.";
         // }
 
-        if (email && !emailRegex.test(email)) {
-            tempErrors.email = "Invalid email format.";
-        }
+        // if (email && !emailRegex.test(email)) {
+        //     tempErrors.email = "Invalid email format.";
+        // }
 
-        if (phone && phoneRegex.test(phone)) {
-            tempErrors.phone = "Invalid phone number format.";
-        }
+        // if (phone && phoneRegex.test(phone)) {
+        //     tempErrors.phone = "Invalid phone number format.";
+        // }
         
         if (password && confirmPassword && password !== confirmPassword) {
             tempErrors.confirmPassword = "Passwords do not match.";
@@ -45,16 +56,36 @@ function SignUp() {
         setErrors(tempErrors);
         return Object.keys(tempErrors).every(key => tempErrors[key] === "");
     };
+    
 
-    const handleSubmit = (e) => {
+    // const handleSubmit = async (e) => {
+    //     e.preventDefault();
+    //     // setLoder(true)
+    //     const validationErrors = validateForm();
+    //     if (Object.keys(validationErrors).length > 0) {
+    //       setErrors(validationErrors);
+    //       return;
+    //     }
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (validate()) {
             // Submit form
+            registerUser(
+                { userName, email, mobileNo:phone, password, confirmPassword, userRoll }
+            )
             console.log("Form submitted successfully");
         } else {
             console.log("Form has errors");
         }
-    };
+
+    // try { 
+    //     const response = await createUser({ userName, email, phone, password, confirmPassword });
+    // } catch (error) {
+    //     console.log(error);
+    // }
+    navigate('/loginpage');    
+}
 
     const handleBlur = (field) => (e) => {
         setTouched({
@@ -104,7 +135,7 @@ function SignUp() {
                         <div className="input-group">
                             <span className="input-group-text"><FaEnvelope /></span>
                             <input
-                                className={`form-control mt-1 ${getValidationClass('emailOrPhone')}`}
+                                className={form-control mt-1 ${getValidationClass('emailOrPhone')}}
                                 type='text'
                                 placeholder='Enter Email or Phone'
                                 value={emailOrPhone}
@@ -163,7 +194,7 @@ function SignUp() {
                                 onClick={() => setShowPassword(!showPassword)} 
                                 className='input-group-text' 
                                 style={{ cursor: 'pointer' }}>
-                                {showPassword ? <IoEyeOff /> : <IoEye />}
+                                {showPassword ? <IoEye /> : <IoEyeOff />}
                             </span>
                             {errors.password && <div className="invalid-feedback">{errors.password}</div>}
                         </div>
@@ -185,14 +216,48 @@ function SignUp() {
                                 onClick={() => setPasswordConfirm(!passwordConfirm)} 
                                 className='input-group-text' 
                                 style={{ cursor: 'pointer' }}>
-                                {passwordConfirm ? <IoEyeOff /> : <IoEye />}
+                                {passwordConfirm ? <IoEye /> : <IoEyeOff />}
                             </span>
                             {errors.confirmPassword && <div className="invalid-feedback">{errors.confirmPassword}</div>}
                         </div>
                     </div>
 
+                    <div className='mt-3 d-flex fw-bold'>
+                                <label htmlFor="userroll">UserRoll :</label>
+                                <div className="form-group gender d-flex">
+                                    <div className='mx-2'>
+                                        <input
+                                            id="admin"
+                                            value="admin"
+                                            type="radio"
+                                            className="formredio"
+                                            name="userroll"
+                                            checked={userRoll === 'admin'}
+                                            onChange={handleUserRollChange}  
+                                            />
+                                        <label htmlFor="admin mx-5">Admin</label>
+                                    </div>
+
+                                    <div className="form-group gender">
+                                    <div className=''>
+                                        <input
+                                            id="user"
+                                            value="user"
+                                            type="radio"
+                                            className="formredio"
+                                            name="userroll"
+                                            checked={userRoll === 'user'}
+                                            onChange={handleUserRollChange}  
+                                            />
+                                        <label htmlFor="user">User</label>
+                                    </div>
+                                
+                                </div>
+                                </div>    
+                    </div>
+
                     <div className='d-flex justify-content-end'>
-                        <button  className='btn mt-4 text-center' type='submit'>Signup</button>
+                        <button onClick={handleSubmit}  className='btn mt-4 text-center' type='submit'>Signup</button>
                     </div>
 
                     <div className='d-flex mt-3'>
@@ -204,10 +269,19 @@ function SignUp() {
             </div>
         
         </Fragment>
-    );
+    )
 }
 
 export default SignUp;
+
+
+
+
+
+
+
+
+
 
 
 

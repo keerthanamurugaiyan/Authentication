@@ -254,7 +254,7 @@ function SignUp() {
                                 
                                 </div>
                                 </div>    
-                    </div>
+                    </div>   
 
                     <div className='d-flex justify-content-end'>
                         <button onClick={handleSubmit}  className='btn mt-4 text-center' type='submit'>Signup</button>
@@ -265,9 +265,9 @@ function SignUp() {
                         <Link to={'loginpage'} className='mx-5 text-start'>Login</Link>
                     </div>
                 
-                </form>
+                </form>    
             </div>
-        
+            
         </Fragment>
     )
 }

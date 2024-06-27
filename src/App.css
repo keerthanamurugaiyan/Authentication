@@ -26,6 +26,10 @@ button:hover{
   border-color: green;
 }
 
+thead{
+  margin-left: 60px !important;
+}
+
 /* input{
   margin-top: -40px;
 } */

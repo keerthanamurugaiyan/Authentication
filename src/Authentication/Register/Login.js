@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react';
-import { FaEnvelope, FaLock} from 'react-icons/fa';
+import { FaEnvelope, FaLock } from 'react-icons/fa';
 import { IoEye, IoEyeOff } from 'react-icons/io5';
-import {Link, useNavigate} from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { registerUser } from '../Api/LoginApi';
 
 function Login() {
@@ -10,8 +10,9 @@ function Login() {
     const [errors, setErrors] = useState({});
     const [touched, setTouched] = useState({});
     const [showPassword, setShowPassword] = useState(false);
+    const [message, setMessage] = useState('');
 
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     const validate = () => {
         let tempErrors = {};
@@ -22,45 +23,63 @@ function Login() {
         return Object.keys(tempErrors).every(key => tempErrors[key] === "");
     }
 
-        const handleSubmit = (e) => {
-            e.preventDefault();
-            if (validate()) {
-                // Submit form
-                registerUser(
-                    {email , password}
-                ) 
-                console.log("Form submitted successfully");
-            } else {
-                console.log("Form has errors");
-            }
-            navigate('/table')
-        };
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (validate()) {
+            try {
+                const response = await registerUser({ email, password });
+                const responseBody = response.data.body;
+                
+                if (responseBody && responseBody.jwt) {
+                    localStorage.setItem("token", responseBody.jwt);
+                    localStorage.setItem("email", responseBody.userEmail);
 
-        const handleBlur = (field) => (e) => {
-            setTouched({
-                ...touched,
-                [field]: true,
-            });
-            validate();
-        };
-    
-        const getValidationClass = (field) => {
-            if (errors[field] && touched[field]) {
-                return 'is-invalid';
+                    if (responseBody.role === "ADMIN") {
+                        navigate("/admintable");
+                    } else if (responseBody.role === "USER") {
+                        navigate("/usertable");
+                    } else {
+                        setMessage("Unexpected user role");
+                        console.error("Unexpected user role", responseBody.role);
+                    }
+                } else {
+                    setMessage("User not found");
+                    console.error("Unexpected response structure", responseBody);
+                }
+            } catch (error) {
+                setMessage("Error logging in");
+                console.error("There was an error!", error);
             }
-            if (!errors[field] && touched[field]) {
-                return 'is-valid';
-            }
-            return '';
-        };
+        } else {
+            console.log("Form has errors");
+        }
+    };
+
+    const handleBlur = (field) => (e) => {
+        setTouched({
+            ...touched,
+            [field]: true,
+        });
+        validate();
+    };
+
+    const getValidationClass = (field) => {
+        if (errors[field] && touched[field]) {
+            return 'is-invalid';
+        }
+        if (!errors[field] && touched[field]) {
+            return 'is-valid';
+        }
+        return '';
+    };
 
     return (
-        
         <Fragment>
-           
             <div className='d-flex justify-content-center mt-5'>
                 <form className='mt-5 pt-3 ps-5 pe-5 pb-2 bg-light rounded-5' onSubmit={handleSubmit}>
                     <h1 className='text-center'>Login</h1>
+
+                    {message && <div className="alert alert-danger">{message}</div>}
 
                     <div className="mb-3">
                         <label className='form-label fw-bold mt-2'>Email :</label>
@@ -101,19 +120,17 @@ function Login() {
                     </div>
 
                     <div className='d-flex justify-content-end'>
-                        <button className='btn mt-3'>Log In</button>
+                        <button className='btn mt-3' type="submit">Log In</button>
                     </div>
 
                     <div className='d-flex mt-3'>
-                        <p>Dont't have an accound?</p>
-                       <Link to={'/'} className='mx-5'>Sign In</Link>
+                        <p>Don't have an account?</p>
+                        <Link to={'/'} className='mx-5'>Sign In</Link>
                     </div>
-
                 </form>
             </div>
-       
         </Fragment>
-    )
+    );
 }
 
-export default Login
+export default Login;

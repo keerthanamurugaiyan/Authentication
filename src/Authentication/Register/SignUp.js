@@ -1,13 +1,11 @@
 import React, { Fragment, useState } from 'react';
 import { FaUser, FaEnvelope, FaPhone, FaLock, FaCheck } from 'react-icons/fa';
 import { IoEye, IoEyeOff } from 'react-icons/io5';
-import {Link, useNavigate} from 'react-router-dom';
-// import { createUser } from './Api';
+import { Link, useNavigate } from 'react-router-dom';
 import { registerUser } from '../Api/SignUpApi';
 
 function SignUp() {
     const [userName, setUserName] = useState('');
-    // const [emailOrPhone, setEmailOrPhone] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
@@ -18,7 +16,7 @@ function SignUp() {
     const [showPassword, setShowPassword] = useState(false);
     const [passwordConfirm, setPasswordConfirm] = useState(false);
 
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     const handleUserRollChange = (e) => {
         setUserRoll(e.target.value);
@@ -28,27 +26,10 @@ function SignUp() {
         let tempErrors = {};
         tempErrors.userName = userName ? "" : "UserName is required.";
         tempErrors.email = email ? "" : "Email is required.";
-        tempErrors.phone = phone ? "" : "Phone Number is required";
+        tempErrors.phone = phone ? "" : "Phone Number is required.";
         tempErrors.password = password ? "" : "Password is required.";
         tempErrors.confirmPassword = confirmPassword ? "" : "Confirm Password is required.";
-        
-        // tempErrors.useRoll = userRoll ?  "" : "userRoll is required."
-        
-        // const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        // const phoneRegex = /^\d{10}$/;
-        
-        // if (emailOrPhone && !emailRegex.test(emailOrPhone) && !phoneRegex.test(emailOrPhone)) {
-        //     tempErrors.emailOrPhone = "Invalid email or phone format.";
-        // }
 
-        // if (email && !emailRegex.test(email)) {
-        //     tempErrors.email = "Invalid email format.";
-        // }
-
-        // if (phone && phoneRegex.test(phone)) {
-        //     tempErrors.phone = "Invalid phone number format.";
-        // }
-        
         if (password && confirmPassword && password !== confirmPassword) {
             tempErrors.confirmPassword = "Passwords do not match.";
         }
@@ -56,36 +37,33 @@ function SignUp() {
         setErrors(tempErrors);
         return Object.keys(tempErrors).every(key => tempErrors[key] === "");
     };
-    
-
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault();
-    //     // setLoder(true)
-    //     const validationErrors = validateForm();
-    //     if (Object.keys(validationErrors).length > 0) {
-    //       setErrors(validationErrors);
-    //       return;
-    //     }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (validate()) {
-            // Submit form
-            registerUser(
-                { userName, email, mobileNo:phone, password, confirmPassword, userRoll }
-            )
-            console.log("Form submitted successfully");
+            try {
+                const response = await registerUser({
+                    userName,
+                    email,
+                    mobileNo: phone,
+                    password,
+                    confirmPassword,
+                    userRoll
+                });
+                console.log(response)
+
+                if (response.data.status) {
+                    navigate('/loginpage');
+                } else {
+                    console.error("Registration failed", response.data);
+                }
+            } catch (error) {
+                console.error("There was an error during registration!", error);
+            }
         } else {
             console.log("Form has errors");
         }
-
-    // try { 
-    //     const response = await createUser({ userName, email, phone, password, confirmPassword });
-    // } catch (error) {
-    //     console.log(error);
-    // }
-    navigate('/loginpage');    
-}
+    };
 
     const handleBlur = (field) => (e) => {
         setTouched({
@@ -100,21 +78,18 @@ function SignUp() {
             return 'is-invalid';
         }
         if (!errors[field] && touched[field]) {
-            return 'is-valid';       
+            return 'is-valid';
         }
         return '';
     };
 
     return (
-        
         <Fragment>
-          
             <div className='container-fluid d-flex justify-content-center mb-2'>
-                <form className='bg-light ps-5 pe-5 pt-3 pb- rounded-5 mt-2' onSubmit={handleSubmit}>
-                    
+                <form className='bg-light ps-5 pe-5 pt-3 pb-4 rounded-5 mt-2' onSubmit={handleSubmit}>
                     <h2 className='text-center mb-4'>Signup Here!</h2>
 
-                    <div className="mb-">
+                    <div className="mb-3">
                         <label className='form-label fw-bold'>UserName :</label>
                         <div className="input-group">
                             <span className="input-group-text"><FaUser /></span>
@@ -130,23 +105,7 @@ function SignUp() {
                         </div>
                     </div>
 
-                    {/* <div className="mb-3">
-                        <label className='form-label fw-bold mt-2'>Email or Phone :</label>
-                        <div className="input-group">
-                            <span className="input-group-text"><FaEnvelope /></span>
-                            <input
-                                className={form-control mt-1 ${getValidationClass('emailOrPhone')}}
-                                type='text'
-                                placeholder='Enter Email or Phone'
-                                value={emailOrPhone}
-                                onChange={(e) => setEmailOrPhone(e.target.value)}
-                                onBlur={handleBlur('emailOrPhone')}
-                            />
-                            {errors.emailOrPhone && <div className="invalid-feedback">{errors.emailOrPhone}</div>}
-                        </div>
-                    </div> */}
-
-                    <div className="mb-">
+                    <div className="mb-3">
                         <label className='form-label fw-bold mt-2'>Email :</label>
                         <div className="input-group inputsize">
                             <span className="input-group-text"><FaEnvelope /></span>
@@ -160,9 +119,9 @@ function SignUp() {
                             />
                             {errors.email && <div className="invalid-feedback">{errors.email}</div>}
                         </div>
-                    </div> 
+                    </div>
 
-                    <div className="mb-">
+                    <div className="mb-3">
                         <label className='form-label fw-bold mt-2'>Phone :</label>
                         <div className="input-group">
                             <span className="input-group-text"><FaPhone /></span>
@@ -178,30 +137,30 @@ function SignUp() {
                         </div>
                     </div>
 
-                    <div className="mb-">
+                    <div className="mb-3">
                         <label className='form-label fw-bold mt-2'>Password :</label>
                         <div className="input-group">
                             <span className="input-group-text"><FaLock /></span>
                             <input
                                 className={`form-control mt-1 ${getValidationClass('password')}`}
                                 type={showPassword ? "text" : 'password'}
-                                placeholder='Enter password'
+                                placeholder='Enter Password'
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 onBlur={handleBlur('password')}
                             />
-                            <span 
-                                onClick={() => setShowPassword(!showPassword)} 
-                                className='input-group-text' 
+                            <span
+                                onClick={() => setShowPassword(!showPassword)}
+                                className='input-group-text'
                                 style={{ cursor: 'pointer' }}>
-                                {showPassword ? <IoEye /> : <IoEyeOff />}
+                                {showPassword ? <IoEyeOff /> : <IoEye />}
                             </span>
                             {errors.password && <div className="invalid-feedback">{errors.password}</div>}
                         </div>
                     </div>
 
-                    <div className="mb-">
-                        <label className='form-label fw-bold mt-2'>Confirm password :</label>
+                    <div className="mb-3">
+                        <label className='form-label fw-bold mt-2'>Confirm Password :</label>
                         <div className="input-group">
                             <span className="input-group-text"><FaCheck /></span>
                             <input
@@ -212,9 +171,9 @@ function SignUp() {
                                 onChange={(e) => setConfirmPassword(e.target.value)}
                                 onBlur={handleBlur('confirmPassword')}
                             />
-                            <span 
-                                onClick={() => setPasswordConfirm(!passwordConfirm)} 
-                                className='input-group-text' 
+                            <span
+                                onClick={() => setPasswordConfirm(!passwordConfirm)}
+                                className='input-group-text'
                                 style={{ cursor: 'pointer' }}>
                                 {passwordConfirm ? <IoEye /> : <IoEyeOff />}
                             </span>
@@ -223,53 +182,47 @@ function SignUp() {
                     </div>
 
                     <div className='mt-3 d-flex fw-bold'>
-                                <label htmlFor="userroll">UserRoll :</label>
-                                <div className="form-group gender d-flex">
-                                    <div className='mx-2'>
-                                        <input
-                                            id="admin"
-                                            value="admin"
-                                            type="radio"
-                                            className="formredio"
-                                            name="userroll"
-                                            checked={userRoll === 'admin'}
-                                            onChange={handleUserRollChange}  
-                                            />
-                                        <label htmlFor="admin mx-5">Admin</label>
-                                    </div>
-
-                                    <div className="form-group gender">
-                                    <div className=''>
-                                        <input
-                                            id="user"
-                                            value="user"
-                                            type="radio"
-                                            className="formredio"
-                                            name="userroll"
-                                            checked={userRoll === 'user'}
-                                            onChange={handleUserRollChange}  
-                                            />
-                                        <label htmlFor="user">User</label>
-                                    </div>
-                                
-                                </div>
-                                </div>    
-                    </div>   
+                        <label htmlFor="userRoll">UserRoll :</label>
+                        <div className="form-group gender d-flex">
+                            <div className='mx-2'>
+                                <input
+                                    id="admin"
+                                    value="ADMIN"
+                                    type="radio"
+                                    className="form-radio"
+                                    name="userRoll"
+                                    checked={userRoll === 'ADMIN'}
+                                    onChange={handleUserRollChange}
+                                />
+                                <label htmlFor="admin">Admin</label>
+                            </div>
+                            <div className='mx-2'>
+                                <input
+                                    id="user"
+                                    value="USER"
+                                    type="radio"
+                                    className="form-radio"
+                                    name="userRoll"
+                                    checked={userRoll === 'USER'}
+                                    onChange={handleUserRollChange}
+                                />
+                                <label htmlFor="user">User</label>
+                            </div>
+                        </div>
+                    </div>
 
                     <div className='d-flex justify-content-end'>
-                        <button onClick={handleSubmit}  className='btn mt-4 text-center' type='submit'>Signup</button>
+                        <button className='btn mt-4 text-center' type='submit'>Signup</button>
                     </div>
 
                     <div className='d-flex mt-3'>
-                        <p>already you have an accound?</p>
-                        <Link to={'loginpage'} className='mx-5 text-start'>Login</Link>
+                        <p>Already have an account?</p>
+                        <Link to={'/loginpage'} className='mx-5 text-start'>Login</Link>
                     </div>
-                
-                </form>    
+                </form>
             </div>
-            
         </Fragment>
-    )
+    );
 }
 
 export default SignUp;

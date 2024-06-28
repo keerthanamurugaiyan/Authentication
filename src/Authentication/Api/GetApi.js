@@ -1,14 +1,13 @@
 import axios from "axios";
 import { baseApi } from "./BaseApi";
 
-const SignUp = '/api/auth/user/register';
+const LogIn = '/api/auth/user/login';
 export const registerUser = async(payload) =>{
 
     try{
 
-        const response = await axios.post(baseApi+SignUp,payload); 
+        const response = await axios.post(baseApi + LogIn,payload); 
         return response.data;
-        // console.log(response)
     } 
     catch (error){ 
         console.log(error);

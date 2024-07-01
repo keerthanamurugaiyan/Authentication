@@ -6,8 +6,9 @@ export const registerUser = async(payload) =>{
 
     try{
 
-        const response = await axios.post(baseApi + LogIn,payload); 
-        return response.data;
+        const response = await axios.post(baseApi+LogIn,payload); 
+        console.log(response);
+        return response;
     } 
     catch (error){ 
         console.log(error);

@@ -17,7 +17,7 @@ const AdminTable = () => {
       }
 
       try {
-        const response = await axios.get(registerUser ,{
+        const response = await axios.put('http://localhost:8080/api/admin/getAllusers' ,{
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -74,57 +74,3 @@ const AdminTable = () => {
 };
 
 export default AdminTable;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import React from 'react'
-
-// function AdminTable() {
-//     return (
-//         <>
-
-//         <div>
-//             <h1 className='text-center mt-5'>Users Data</h1>
-
-//             <table className='table text-center mt-5 w-75 mx-5 table-stripped'>
-                
-//                 <thead className='bg-info'>
-//                     <tr>
-//                         <th>UserName</th>
-//                         <th>Email</th>
-//                         <th>Phone</th>
-//                         <th>Password</th>
-//                         <th>Confirm Password</th>
-//                     </tr>
-//                 </thead>
-
-//                 <tbody>
-//                     <tr></tr>
-//                 </tbody>
-            
-//             </table>
-//         </div>
-
-//         </>
-//     )
-// }
-
-// export default AdminTable

@@ -127,7 +127,7 @@ function Login() {
 
                     <div className='d-flex mt-3'>
                         <p>Don't have an account?</p>
-                        <Link to={'/'} className='mx-5'>Sign In</Link>
+                        <Link to={'/signuppage'} className='mx-5'>Sign In</Link>
                     </div>
                 </form>
             </div>

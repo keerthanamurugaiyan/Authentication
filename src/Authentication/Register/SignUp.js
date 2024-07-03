@@ -57,7 +57,7 @@ function SignUp() {
                     userRole
                 })
             });
-
+            console.log(response)
             if (response.ok) {
                 alert('User registered successfully!');
                 setTimeout(() => navigate('/loginpage'), );
@@ -216,8 +216,8 @@ function SignUp() {
                         </div>
                     </div>
 
-                    <div className='d-flex justify-content-end'>
-                        <button className='btn mt-2 text-center' type='submit'>Signup</button>
+                    <div className=' d-flex justify-content-end'>
+                        <button className='btn mt-2 text-center regbtn' type='submit'>Signup</button>
                     </div>
 
                     <div className='d-flex mt-3'>

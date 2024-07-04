@@ -1,15 +1,19 @@
 import axios from "axios";
 import { baseApi } from "./BaseApi";
 
-const LogIn = '/api/auth/user/login';
-export const registerUser = async(payload) =>{
+const getApi = '/api/user/getUser/';
+export const GetUserApi = async(payload,token) => {
 
     try{
 
-        const response = await axios.post(baseApi + LogIn,payload); 
-        return response.data;
-    } 
-    catch (error){ 
-        console.log(error);
-    }
+        const response = await axios.get(`${baseApi} ${getApi} ${payload}`,{ 
+            headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            });
+            return response.data;
+          } catch (error) {
+            console.error(error);
+            throw error;
+          }
 };

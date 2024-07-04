@@ -6,6 +6,7 @@ import Login from './Authentication/Register/Login';
 import AdminTable from './Authentication/Register/AdminTable';
 import UserTable from './Authentication/Register/UserTable';
 import Nav from './Authentication/Register/Nav';
+import Footer from './Authentication/Register/Footer';
 // es7
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
         <Route path='/loginpage' element = {<Login/>} />  
         <Route path='/usertable' element = {<UserTable/>} />
         <Route path='/admintable' element = {<AdminTable/>} />
+        {/* <Route path='/' element = {<Footer/>} /> */}
         
 
       </Routes>

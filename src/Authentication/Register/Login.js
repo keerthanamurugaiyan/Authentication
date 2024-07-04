@@ -122,7 +122,7 @@ function Login() {
                     </div>
 
                     <div className='d-flex justify-content-end'>
-                        <button className='btn mt-3' type="submit">Log In</button>
+                        <button className='btn mt-3 regbtn' type="submit">Log In</button>
                     </div>
 
                     <div className='d-flex mt-3'>

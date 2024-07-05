@@ -77,61 +77,73 @@ function Login() {
 
     return (
         <Fragment>
+            
             <div className='d-flex justify-content-center mt-5'>
-                <form className='mt-5 pt-3 ps-5 pe-5 pb-2 bg-light rounded-5' onSubmit={handleSubmit}>
-                    <h1 className='text-center'>Login</h1>
+            <form className='row mt-5 pt-3 ps- pe-4 pb-2 bg-light rounded-5 w-50' onSubmit={handleSubmit}>
+                
+                <div className='col-md-5 d-flex align-items-center justify-content-center'>
+                    <img src="/login(2).jpg" alt="" width="200px" height="200px" />
+                </div>
+                
+                <div className='col-md-7'>
+                    <h1 className='login text-center'>Login</h1>
 
                     {message && <div className="alert alert-danger">{message}</div>}
 
-                    <div className="mb-3">
-                        <label className='form-label fw-bold mt-2'>Email :</label>
-                        <div className="input-group inputsize">
-                            <span className="input-group-text"><FaEnvelope /></span>
-                            <input
-                                className={`form-control mt-1 ${getValidationClass('email')}`}
-                                type='text'
-                                placeholder='Enter Email Address'
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                onBlur={handleBlur('email')}
-                            />
-                            {errors.email && <div className="invalid-feedback">{errors.email}</div>}
-                        </div>
-                    </div> 
-
-                    <div className="mb-3">
-                        <label className='form-label fw-bold mt-2'>Password :</label>
-                        <div className="input-group">
-                            <span className="input-group-text"><FaLock /></span>
-                            <input
-                                className={`form-control mt-1 ${getValidationClass('password')}`}
-                                type={showPassword ? "text" : 'password'}
-                                placeholder='Enter Your Password'
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                onBlur={handleBlur('password')} 
-                            />
-                            <span 
-                                onClick={() => setShowPassword(!showPassword)} 
-                                className='input-group-text' 
-                                style={{ cursor: 'pointer' }}>
-                                {showPassword ? <IoEyeOff /> : <IoEye />}
-                            </span>
-                            {errors.password && <div className="invalid-feedback">{errors.password}</div>}
-                        </div>
+                <div className="mb-3">
+                    <label className='form-label fw-bold mt-2'>Email :</label>
+                    <div className="input-group inputsize">
+                        <span className="input-group-text"><FaEnvelope /></span>
+                        <input
+                            className={`form-control mt-1 ${getValidationClass('email')}`}
+                            type='text'
+                            placeholder='Enter Email Address'
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            onBlur={handleBlur('email')}
+                        />
+                        {errors.email && <div className="invalid-feedback">{errors.email}</div>}
                     </div>
+                </div>
 
-                    <div className='d-flex justify-content-end'>
-                        <button className='btn mt-3 regbtn' type="submit">Log In</button>
+                <div className="mb-3">
+                    <label className='form-label fw-bold mt-2'>Password :</label>
+                    <div className="input-group">
+                        <span className="input-group-text"><FaLock /></span>
+                        <input
+                            className={`form-control mt-1 ${getValidationClass('password')}`}
+                            type={showPassword ? "text" : 'password'}
+                            placeholder='Enter Your Password'
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            onBlur={handleBlur('password')}
+                        />
+                        <span
+                            onClick={() => setShowPassword(!showPassword)}
+                            className='input-group-text'
+                            style={{ cursor: 'pointer' }}>
+                            {showPassword ? <IoEyeOff /> : <IoEye />}
+                        </span>
+                        {errors.password && <div className="invalid-feedback">{errors.password}</div>}
                     </div>
+                </div>
 
-                    <div className='d-flex mt-3'>
-                        <p>Don't have an account?</p>
-                        <Link to={'/signuppage'} className='mx-5'>Sign In</Link>
-                    </div>
-                </form>
+                <div className='d-flex justify-content-end'>
+                    <button className='btn mt-3 regbtn text-light fw-bold' type="submit">Log In</button>
+                </div>
+
+                <div className='d-flex mt-3'>
+                    <p>Don't have an account?</p>
+                    <Link to={'/signuppage'} className='mx-5'>Sign In</Link>
+                </div>
             </div>
-        </Fragment>
+        </form>
+        </div>
+    </Fragment>
+
+
+
+
     );
 }
 

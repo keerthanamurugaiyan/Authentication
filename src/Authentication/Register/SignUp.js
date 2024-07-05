@@ -89,144 +89,153 @@ function SignUp() {
 
     return (
         <Fragment>
-            <div className='container-fluid d-flex justify-content-center mb-2'>
-                <form className='bg-light ps-5 pe-5 pt-3 pb-4 rounded-5 mt-2' onSubmit={handleSubmit}>
-                    <h2 className='text-center mb-4'>Signup Here!</h2>
-                    {responseMessage && <div className="alert alert-info">{responseMessage}</div>}
-
-                    <div className="mb-">
-                        <label className='form-label fw-bold'>UserName :</label>
-                        <div className="input-group">
-                            <span className="input-group-text"><FaUser /></span>
-                            <input
-                                className={`input form-control ${getValidationClass('userName')}`}
-                                type="text"
-                                placeholder="Enter UserName"
-                                value={userName}
-                                onChange={(e) => setUserName(e.target.value)}
-                                onBlur={handleBlur('userName')}
-                            />
-                            {errors.userName && <div className="invalid-feedback">{errors.userName}</div>}
-                        </div>
-                    </div>
-
-                    <div className="mb-">
-                        <label className='form-label fw-bold mt-2'>Email :</label>
-                        <div className="input-group inputsize">
-                            <span className="input-group-text"><FaEnvelope /></span>
-                            <input
-                                className={`form-control mt-1 ${getValidationClass('email')}`}
-                                type='text'
-                                placeholder='Enter Email Address'
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                onBlur={handleBlur('email')}
-                            />
-                            {errors.email && <div className="invalid-feedback">{errors.email}</div>}
-                        </div>
-                    </div>
-
-                    <div className="mb-">
-                        <label className='form-label fw-bold mt-2'>Phone :</label>
-                        <div className="input-group">
-                            <span className="input-group-text"><FaPhone /></span>
-                            <input
-                                className={`form-control mt-1 ${getValidationClass('mobileNo')}`}
-                                type='text'
-                                placeholder='Enter Phone Number'
-                                value={mobileNo}
-                                onChange={(e) => setMobileNo(e.target.value)}
-                                onBlur={handleBlur('mobileNo')}
-                            />
-                            {errors.mobileNo && <div className="invalid-feedback">{errors.mobileNo}</div>}
-                        </div>
-                    </div>
-
-                    <div className="mb-">
-                        <label className='form-label fw-bold mt-2'>Password :</label>
-                        <div className="input-group">
-                            <span className="input-group-text"><FaLock /></span>
-                            <input
-                                className={`form-control mt-1 ${getValidationClass('password')}`}
-                                type={showPassword ? "text" : 'password'}
-                                placeholder='Enter Password'
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                onBlur={handleBlur('password')}
-                            />
-                            <span
-                                onClick={() => setShowPassword(!showPassword)}
-                                className='input-group-text'
-                                style={{ cursor: 'pointer' }}>
-                                {showPassword ? <IoEyeOff /> : <IoEye />}
-                            </span>
-                            {errors.password && <div className="invalid-feedback">{errors.password}</div>}
-                        </div>
-                    </div>
-
-                    <div className="mb-">
-                        <label className='form-label fw-bold mt-2'>Confirm Password :</label>
-                        <div className="input-group">
-                            <span className="input-group-text"><FaCheck /></span>
-                            <input
-                                className={`form-control ${getValidationClass('confirmPassword')}`}
-                                type={passwordConfirm ? 'text' : 'password'}
-                                placeholder='Enter Confirm Password'
-                                value={confirmPassword}
-                                onChange={(e) => setConfirmPassword(e.target.value)}
-                                onBlur={handleBlur('confirmPassword')}
-                            />
-                            <span
-                                onClick={() => setPasswordConfirm(!passwordConfirm)}
-                                className='input-group-text'
-                                style={{ cursor: 'pointer' }}>
-                                {passwordConfirm ? <IoEyeOff /> : <IoEye />}
-                            </span>
-                            {errors.confirmPassword && <div className="invalid-feedback">{errors.confirmPassword}</div>}
-                        </div>
-                    </div>
-
-                    <div className='mt-3 d-flex fw-bold'>
-                        <label htmlFor="userRole">User Role :</label>
-                        <div className="form-group gender d-flex">
-                            <div className='mx-2'>
-                                <input
-                                    id="admin"
-                                    value="ADMIN"
-                                    type="radio"
-                                    className="form-radio"
-                                    name="userRole"
-                                    checked={userRole === 'ADMIN'}
-                                    onChange={handleUserRoleChange}
-                                />
-                                <label htmlFor="admin">Admin</label>
-                            </div>
-                            <div className='mx-2'>
-                                <input
-                                    id="user"
-                                    value="USER"
-                                    type="radio"
-                                    className="form-radio"
-                                    name="userRole"
-                                    checked={userRole === 'USER'}
-                                    onChange={handleUserRoleChange}
-                                />
-                                <label htmlFor="user">User</label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className=' d-flex justify-content-end'>
-                        <button className='btn mt-2 text-center regbtn' type='submit'>Signup</button>
-                    </div>
-
-                    <div className='d-flex mt-3'>
-                        <p>Already have an account?</p>
-                        <Link to={'/loginpage'} className='mx-5 text-start'>Login</Link>
-                    </div>
-                </form>
+    <div className='container-fluid d-flex justify-content-center mt-5 mb-1 me-4'>
+        <form className='row bg-light ps-2 pe-5 pt-3 pb-4 rounded-5 mt-2 w-50' onSubmit={handleSubmit}>
+            <div className='col-md-5 mt-4 d-flex align-items-center justify-content-center'>
+                <img src="/signup(2).jpg" alt="Signup" width="250px" height="370px" />
             </div>
-        </Fragment>
+            <div className='col-md-7'>
+                <h2 className='text-center mb-4'>Signup Here!</h2>
+                {responseMessage && <div className="alert alert-info">{responseMessage}</div>}
+
+                <div className="mb-3">
+                    {/* <label className='form-label fw-bold'>UserName :</label> */}
+                    <div className="input-group">
+                        <span className="input-group-text"><FaUser /></span>
+                        <input
+                            className={`input form-control ${getValidationClass('userName')}`}
+                            type="text"
+                            placeholder="UserName"
+                            value={userName}
+                            onChange={(e) => setUserName(e.target.value)}
+                            onBlur={handleBlur('userName')}
+                        />
+                        
+                        {errors.userName && <div className="invalid-feedback">{errors.userName}</div>}
+                    </div>
+                </div>
+
+                <div className="mb-3">
+                    {/* <label className='form-label fw-bold mt-2'>Email :</label> */}
+                    <div className="input-group inputsize">
+                        <span className="input-group-text"><FaEnvelope /></span>
+                        <input
+                            className={`form-control mt-1 ${getValidationClass('email')}`}
+                            type='text'
+                            placeholder='Enter Email Address'
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            onBlur={handleBlur('email')}
+                        />
+                        {errors.email && <div className="invalid-feedback">{errors.email}</div>}
+                    </div>
+                </div>
+
+                <div className="mb-3">
+                    {/* <label className='form-label fw-bold mt-2'>Phone :</label> */}
+                    <div className="input-group">
+                        <span className="input-group-text"><FaPhone /></span>
+                        <input
+                            className={`form-control mt-1 ${getValidationClass('mobileNo')}`}
+                            type='text'
+                            placeholder='Enter Phone Number'
+                            value={mobileNo}
+                            onChange={(e) => setMobileNo(e.target.value)}
+                            onBlur={handleBlur('mobileNo')}
+                        />
+                        {errors.mobileNo && <div className="invalid-feedback">{errors.mobileNo}</div>}
+                    </div>
+                </div>
+
+                <div className="mb-3">
+                    {/* <label className='form-label fw-bold mt-2'>Password :</label> */}
+                    <div className="input-group">
+                        <span className="input-group-text"><FaLock /></span>
+                        <input
+                            className={`form-control mt-1 ${getValidationClass('password')}`}
+                            type={showPassword ? "text" : 'password'}
+                            placeholder='Enter Password'
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            onBlur={handleBlur('password')}
+                        />
+                        <span
+                            onClick={() => setShowPassword(!showPassword)}
+                            className='input-group-text'
+                            style={{ cursor: 'pointer' }}>
+                            {showPassword ? <IoEyeOff /> : <IoEye />}
+                        </span>
+                        {errors.password && <div className="invalid-feedback">{errors.password}</div>}
+                    </div>
+                </div>
+
+                <div className="mb-">
+                    {/* <label className='form-label fw-bold mt-2'>Confirm Password :</label> */}
+                    <div className="input-group">
+                        <span className="input-group-text"><FaCheck /></span>
+                        <input
+                            className={`form-control ${getValidationClass('confirmPassword')}`}
+                            type={passwordConfirm ? 'text' : 'password'}
+                            placeholder='Enter Confirm Password'
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                            onBlur={handleBlur('confirmPassword')}
+                        />
+                        <span
+                            onClick={() => setPasswordConfirm(!passwordConfirm)}
+                            className='input-group-text'
+                            style={{ cursor: 'pointer' }}>
+                            {passwordConfirm ? <IoEyeOff /> : <IoEye />}
+                        </span>
+                        {errors.confirmPassword && <div className="invalid-feedback">{errors.confirmPassword}</div>}
+                    </div>
+                </div>
+
+                <div className='mt-3 d-flex fw-bold'>
+                    <label htmlFor="userRole">User Role :</label>
+                    <div className="form-group gender d-flex">
+                        <div className='mx-2'>
+                            <input
+                                id="admin"
+                                value="ADMIN"
+                                type="radio"
+                                className="form-radio"
+                                name="userRole"
+                                checked={userRole === 'ADMIN'}
+                                onChange={handleUserRoleChange}
+                            />
+                            <label htmlFor="admin">Admin</label>
+                        </div>
+                        <div className='mx-2'>
+                            <input
+                                id="user"
+                                value="USER"
+                                type="radio"
+                                className="form-radio"
+                                name="userRole"
+                                checked={userRole === 'USER'}
+                                onChange={handleUserRoleChange}
+                            />
+                            <label htmlFor="user">User</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div className='d-flex justify-content-end'>
+                    <button className='btn mt-2 text-center regbtn' type='submit'>Signup</button>
+                </div>
+
+                <div className='d-flex mt-3 mx-'>
+                    <p>Already have an account?</p>
+                    <Link to={'/loginpage'} className='mx-5 text-start'>Login</Link>
+                </div>
+            </div>
+        </form>
+    </div>
+</Fragment>
+
+    
+
     );
 }
 

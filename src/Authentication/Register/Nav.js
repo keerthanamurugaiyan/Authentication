@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { CgList, CgMenuBoxed } from "react-icons/cg";
 // import { Link } from "react-router-dom";
-import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
+// import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
 // import "./Header.css";
 
 // const locations = ["Chennai", "Trichy", "Thanjavur"];
@@ -20,10 +20,12 @@ export default function Nav({ selectedLocation, setSelectedLocation }) {
 
   return (
     <div className="home-bg">
-      <header className="navbar bg-light shadow-sm fixed-top">
+      <header className="navbar shadow- fixed-top">
         <div className="nav-links">
-          <img className="mx-5" src="/logoHeader.png" alt="" width="140px" height="70px" />
-          {/* <Link className="mx-5" to="/">Ebrain Technology</Link> */}
+          <div className="mx-5">
+          <img className="mx-" src="/companyLogo.png" alt="" margin-left='100px' width="100px" height="60px" />
+          <Link className="mx-1 fw-bold display-" to="/">Ebrain Technology</Link>
+          </div>
           <div className="dropdown ms-auto">
             {/* <select
               className="location-dropdown"
@@ -70,7 +72,7 @@ export default function Nav({ selectedLocation, setSelectedLocation }) {
       
       <div>
       
-      <div className="home-page bg-dark text-light w-50 p-5 mb-5 pb-5 text-center d-flex justify-content-center rounded-5">
+      <div className="home-page bg-dark mt- text-light w-50 p-5 mb-5 pb-5 text-center d-flex justify-content-center rounded-5">
     <div className="center mx-auto text-center">
         <h2 className="mt-5 fw-bold text-success">
             Welcome to Our Community
@@ -91,7 +93,7 @@ export default function Nav({ selectedLocation, setSelectedLocation }) {
     </div>
 </div>
 
-    <footer className="footer text-dark mt-5 py-3 ">
+    {/* <footer className="footer text-dark mt-5 py-3 ">
       <div className="margin container d-flex justify-content-between mt- align-items-center">
         <div>
           <img src="/logoHeader.png" alt="Logo" width="140px" height="70px" />
@@ -103,7 +105,7 @@ export default function Nav({ selectedLocation, setSelectedLocation }) {
             <Link className="mx-2" to="/">Privacy Policy</Link>
             <Link className="mx-2" to="/">Terms of Service</Link>
           </div> */}
-          <div className="mt-">
+          {/* <div className="mt-">
             <FaFacebook className="mx-2 text-primary" size={24} />
             <FaTwitter className="mx-2 text-primary" size={24} />
             <FaInstagram className="mx-2 text-primary" size={24} />
@@ -113,8 +115,8 @@ export default function Nav({ selectedLocation, setSelectedLocation }) {
         <div>
           <p className="mb-0">&copy; {new Date().getFullYear()} Ebrain Technology. All Rights Reserved.</p>
         </div>
-      </div>
-    </footer>
+      </div> */}
+    {/* // </footer> */} 
 
 
       </div>

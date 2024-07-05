@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { MdDeleteSweep } from "react-icons/md";
 import axios from 'axios';
 
 const AdminTable = () => {
@@ -70,11 +71,11 @@ const AdminTable = () => {
         <table className="table text-center mt-5 table-stripped">
           <thead>
             <tr>
-              <th className='bg-info'>User Name</th>
-              <th className='bg-info'>Email</th>
-              <th className='bg-info'>Mobile Number</th>
-              <th className='bg-info'>Status</th>
-              <th className='bg-info'>Action</th>
+              <th className='bg-secondary'>User Name</th>
+              <th className='bg-secondary'>Email</th>
+              <th className='bg-secondary'>Mobile Number</th>
+              <th className='bg-secondary'>Status</th>
+              <th className='bg-secondary'>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -85,7 +86,13 @@ const AdminTable = () => {
                 <td>{user.mobileNo}</td>
                 <td>{user.status}</td>
                 <td>
-                  <button className="btn btn-danger" onClick={() => handleDelete(user.email)}>Delete</button>
+                <button 
+                  className="btn btn-danger m-2 regbtn text-light text-center fs-5" 
+                  onClick={handleDelete}
+                  >
+                     <MdDeleteSweep />
+                  </button>
+                  {/* <button className="btn btn-danger" onClick={() => handleDelete(user.email)}>Delete</button> */}
                 </td>
               </tr>
             ))}

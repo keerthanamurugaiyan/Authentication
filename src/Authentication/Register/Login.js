@@ -79,13 +79,13 @@ function Login() {
         <Fragment>
             
             <div className='d-flex justify-content-center mt-5'>
-            <form className='row mt-5 pt-3 ps- pe-4 pb-2 bg-light rounded-5 w-50' onSubmit={handleSubmit}>
+            <form className='row mt-5 pt-3 ps- pe- pb-2 bg-light rounded-5 w-50' onSubmit={handleSubmit}>
                 
                 <div className='col-md-5 d-flex align-items-center justify-content-center'>
-                    <img src="/login(2).jpg" alt="" width="200px" height="200px" />
+                    <img src="/login(2).jpg" alt="Login Image" width="250px" height="250px" />
                 </div>
                 
-                <div className='col-md-7'>
+                <div className='col-md-6'>
                     <h1 className='login text-center'>Login</h1>
 
                     {message && <div className="alert alert-danger">{message}</div>}
@@ -140,9 +140,6 @@ function Login() {
         </form>
         </div>
     </Fragment>
-
-
-
 
     );
 }

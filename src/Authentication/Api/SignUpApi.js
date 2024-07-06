@@ -1,25 +1,3 @@
-// import axios from "axios";
-// import { baseApi } from "./BaseApi";
-
-// const SignUp = '/api/auth/user/register';
-// export const registerUser = async(payload) =>{
-
-//     try{
-//         console.log(baseApi+SignUp,payload);
-//         const response = await axios.post(baseApi+SignUp,payload); 
-//         console.log(response);
-//         return response.data;
-        
-//     } 
-    
-//     catch (error){ 
-//         console.log(error);
-//     }
-// };
-
-
-
-
 import axios from "axios";
 import { baseApi } from "./BaseApi";
 
